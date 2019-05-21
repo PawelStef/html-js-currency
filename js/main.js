@@ -1,3 +1,5 @@
+
+
 const CHART = document.getElementById("lineChart");
 console.log(CHART);
 let lineChart = new Chart(CHART, {
@@ -42,4 +44,33 @@ let lineChart = new Chart(CHART, {
       position : "bottom"
     }
   }
+});
+
+let dropdown = $('.currencies-dropdown');
+dropdown.empty();
+dropdown.append('<option selected="true" disabled>--Select--</option>');
+dropdown.prop('selectedIndex', 0);
+const url = 'https://openexchangerates.org/api/currencies.json';
+
+$.getJSON(url, function (data) {
+  $.each(data, function (key, value) {
+    dropdown.append('<option value=' + value + '>' + key + '</option>');
+  });
+});
+
+
+let currency = $('CurrencyExchange');
+currency.empty();
+const f = document.getElementById("From");
+const from = f.options[f.selectedIndex].text;
+const t = document.getElementById("From");
+const to = t.options[t.selectedIndex].text;
+
+$.getJSON('https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency='+from+'&to_currency='+to+'&apikey=demo', function (data) {
+  valueOf(data, function (key, value) {
+    currency.append('<p ' + '>' + key + '</p>');
+
+
+
+  });
 });
