@@ -37,8 +37,8 @@
   <label style="width: 170px; height: 70px; position: absolute; left: 360px ;border-width: thick;border-color: black">
 
     <p style="font-size: xx-small; position: absolute;bottom: 50px "> Real-time exchange rate</p>
-    <p class="CurrencyExchange" style="font-size: large; position: absolute;bottom: 15px "> Value of </p> <!--zmienić na aktualną wartość-->
-    <p style="font-size: small; position: absolute;bottom: 0px "> PLN  <=>  USD</p> <!--pobierać oznaczenia walut z selecta-->
+    <p id="value" style="font-size: large; position: absolute;bottom: 15px "></p> <!--zmienić na aktualną wartość-->
+    <p id="FromTo" style="font-size: small; position: absolute;bottom: 0px "> PLN  <=>  USD</p> <!--pobierać oznaczenia walut z selecta-->
 
   </label>
 </div>
@@ -61,6 +61,20 @@
   <button name="10y"  type="submit" onclick="UserAction10Y()"> 10Y </button>
 </div>
 
+  <script>
+    $(document).ready(function(){
+
+      const urs = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=PLN&apikey=J3IPR8A064WO3OI9';
+      $.getJSON(urs, function (data) {
+
+        //console.log(data['Realtime Currency Exchange Rate']['5. Exchange Rate']);
+        const wart = data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
+
+        $('#value').append(wart);
+      });
+    })
+
+  </script>
 
 <script src="js/main.js"></script>
 
