@@ -11,8 +11,6 @@
   <link rel="apple-touch-icon" href="icon.png">
   <!-- Place favicon.ico in the root directory -->
 
-
-
   <meta name="theme-color" content="#fafafa">
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
   <script src="js/vendor/jquery-3.3.1.min.js"></script>
@@ -20,8 +18,9 @@
 </head>
 
 <body>
+
 <div style="height: 70px; width: 500px ";  >
-  <p style="font-size: xx-large;">Select exchange currencies</p>
+  <p id="cos" style="font-size: xx-large;">Select exchange currencies</p>
 </div>
 
 
@@ -34,17 +33,21 @@
   <select class="currencies-dropdown" id="to" style="font-size: large; background-color: azure; position: absolute; left: 215px ">
   </select>
 
-  <label style="width: 170px; height: 70px; position: absolute; left: 360px ;border-width: thick;border-color: black">
+  <label style="width: 170px; height: 10px; position: absolute; left: 360px ;bottom: 530px ">
+    <p style="font-size: xx-small;"> Real-time exchange rate</p>
+  </label>
 
-    <p style="font-size: xx-small; position: absolute;bottom: 50px "> Real-time exchange rate</p>
-    <p id="value" style="font-size: large; position: absolute;bottom: 15px "></p> <!--zmienić na aktualną wartość-->
-    <p id="FromTo" style="font-size: small; position: absolute;bottom: 0px "> PLN  <=>  USD</p> <!--pobierać oznaczenia walut z selecta-->
+  <label style="width: 170px; height: 40px; position: absolute; left: 360px ;bottom: 490px ">
+    <p id="value" style="font-size: large "></p> <!--zmienić na aktualną wartość-->
+  </label>
 
+  <label style="width: 170px; height: 20px; position: absolute; left: 360px ;bottom: 480px ">
+    <p id="FromTo" style="font-size: small"></p> <!--pobierać oznaczenia walut z selecta-->
   </label>
 </div>
 
 
-<div style="width: 500px; ">
+<div id="chart-container" style="width: 500px; ">
 <canvas id="lineChart" width="500" height="300"></canvas>
 </div>
 
@@ -61,25 +64,8 @@
   <button name="10y"  type="submit" onclick="UserAction10Y()"> 10Y </button>
 </div>
 
-  <script>
-    $(document).ready(function(){
-
-      const urs = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=USD&to_currency=PLN&apikey=J3IPR8A064WO3OI9';
-      $.getJSON(urs, function (data) {
-
-        //console.log(data['Realtime Currency Exchange Rate']['5. Exchange Rate']);
-        const wart = data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
-
-        $('#value').append(wart);
-      });
-    })
-
-  </script>
 
 <script src="js/main.js"></script>
 
-
-
 </body>
-
 </html>
