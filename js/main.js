@@ -12,19 +12,22 @@ $( ".currencies-dropdown" ).change(function(){
   console.log(from);
   console.log(to);
 
-  const url = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=' + from + '&to_currency=' + to + '&apikey=J3IPR8A064WO3OI9';
+  const url = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=' + from + '&to_currency=' + to + '&apikey=3FTF5MNQVTS485JG';
   console.log(url);
   $.getJSON(url, function (data) {
 
-    console.log(data['Realtime Currency Exchange Rate']['5. Exchange Rate']);
+    //console.log(data['Realtime Currency Exchange Rate']['5. Exchange Rate']);
     const wart = data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
     document.getElementById("value").innerHTML = "";
     $('#value').append('<p>'+wart+'</p>');
   });
 
 
-const urlchart ='https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=EUR&to_symbol=USD&apikey=J3IPR8A064WO3OI9'
+const urlchart ='https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=' + from + '&to_symbol=' + to + '&apikey=3FTF5MNQVTS485JG'
   $.getJSON(urlchart, function (data) {
+
+    tabdatas.length=0;
+    tablabel.length=0;
     $.each(data["Time Series FX (Daily)"], function (key, value) {
       tablabel.push(key);
       tabdatas.push(value["1. open"]);
@@ -36,11 +39,13 @@ const urlchart ='https://www.alphavantage.co/query?function=FX_DAILY&from_symbol
     tablabel.reverse();
 
   })
-  const CHART = function(){
-    $('#lineChart').remove(); // this is my <canvas> element
-    $('#chart-container').append('<canvas id="lineChart" width="500" height="300"><canvas>');
 
-  };
+
+  //const CHART = function(){
+  //  $('#lineChart').remove(); // this is my <canvas> element
+   // $('#chart-container').append('<canvas id="lineChart" width="500" height="300"><canvas>');
+
+  //};
 
 
   let lineChart = new Chart(CHART, {
@@ -95,7 +100,7 @@ const urlchart ='https://www.alphavantage.co/query?function=FX_DAILY&from_symbol
 
 
 //chart element
-//const CHART = document.getElementById("lineChart");
+const CHART = document.getElementById("lineChart");
 
 
 
