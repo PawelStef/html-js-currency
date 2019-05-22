@@ -1,9 +1,8 @@
 const tablabel =[];
 const tabdatas =[];
 //adding currency exchange rate after choosing currencies
-const fun = 'FX_INTERADAY';
-const interva = '15min';
-
+const fun = "FX_INTRADAY";
+const inter = "15min";
 
 
 
@@ -22,21 +21,24 @@ $( ".currencies-dropdown" ).change(function(){
     console.log(from);
     console.log(to);
 
-    const url = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=' + from + '&to_currency=' + to + '&apikey=3FTF5MNQVTS485JG';
+    const url = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=' + from + '&to_currency=' + to + '&apikey=J3IPR8A064WO3OI9';
     console.log(url);
     $.getJSON(url, function (data) {
+      setTimeout(function () {
+      },2000)
 
-      //console.log(data['Realtime Currency Exchange Rate']['5. Exchange Rate']);
+      console.log(data['Realtime Currency Exchange Rate']['5. Exchange Rate']);
       const wart = data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
       document.getElementById("value").innerHTML = "";
       $('#value').append('<p>' + wart + '</p>');
     });
+    const urlchart = 'https://www.alphavantage.co/query?function='+ fun +'&from_symbol=' + from + '&to_symbol=' + to + '&interval='+inter+'&apikey=J3IPR8A064WO3OI9';
+  console.log(urlchart);
 
-
-    const urlchart = 'https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=' + from + '&to_symbol=' + to + '&apikey=3FTF5MNQVTS485JG'
- // https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol=EUR&to_symbol=USD&interval=5min&apikey=demo
     $.getJSON(urlchart, function (data) {
 
+      setTimeout(function () {
+      },2000)
       tabdatas.length = 0;
       tablabel.length = 0;
       $.each(data["Time Series FX (Daily)"], function (key, value) {
@@ -51,12 +53,6 @@ $( ".currencies-dropdown" ).change(function(){
 
     })
 
-
-    //const CHART = function(){
-    //  $('#lineChart').remove(); // this is my <canvas> element
-    // $('#chart-container').append('<canvas id="lineChart" width="500" height="300"><canvas>');
-
-    //};
 
 
     let lineChart = new Chart(CHART, {
