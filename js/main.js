@@ -24,7 +24,7 @@ let tabdatas = [];
 let fun = "FX_INTRADAY";
 let inter = "&interval=15min";
 let rep = 48;
-let ask = '"Time Series FX (15min)"';
+let ask = "Time Series FX (15min)";
 
 
 function myMainFunction() {
@@ -58,17 +58,61 @@ function historicalRate(fun, from, to, inter, rep, ask) {
     tabdatas.length = 0;
     tablabel.length = 0;
     //problem z dostarczeniem dobrego zapytania do JSON
-    $.each(data[ask], function (key, value) {
-      tablabel.push(key);
-      tabdatas.push(value["1. open"]);
-      console.log(value["1. open"]);
-      console.log(key);
-
-    });
+    switch (ask) {
+      case "Time Series FX (15min)":{
+        $.each(data["Time Series FX (15min)"], function (key, value) {
+          tablabel.push(key);
+          tabdatas.push(value["1. open"]);
+          console.log(value["1. open"]);
+          console.log(key);
+        });
+        break;
+      }
+      case "Time Series FX (30min)":{
+        $.each(data["Time Series FX (30min)"], function (key, value) {
+          tablabel.push(key);
+          tabdatas.push(value["1. open"]);
+          console.log(value["1. open"]);
+          console.log(key);
+        });
+        break;
+      }
+      case "Time Series FX (Daily)":{
+        $.each(data["Time Series FX (Daily)"], function (key, value) {
+          tablabel.push(key);
+          tabdatas.push(value["1. open"]);
+          console.log(value["1. open"]);
+          console.log(key);
+        });
+        break;
+      }
+      case "Time Series FX (Weekly)":{
+        $.each(data["Time Series FX (Weekly)"], function (key, value) {
+          tablabel.push(key);
+          tabdatas.push(value["1. open"]);
+          console.log(value["1. open"]);
+          console.log(key);
+        });
+        break;
+      }
+      case "Time Series FX (Monthly)":{
+        $.each(data["Time Series FX (Monthly)"], function (key, value) {
+          tablabel.push(key);
+          tabdatas.push(value["1. open"]);
+          console.log(value["1. open"]);
+          console.log(key);
+        });
+        break;
+      }
+    }
+    tabdatas=tabdatas.slice(0,rep);
+    tablabel=tablabel.slice(0,rep);
     tabdatas.reverse();
     tablabel.reverse();
 
-  })
+
+
+  });
   renderChart(tabdatas, tablabel)
 }
 
@@ -78,7 +122,7 @@ function realTimeExcangeRate(from, to) {
   console.log(url);
   $.getJSON(url, function (data) {
     console.log(data['Realtime Currency Exchange Rate']['5. Exchange Rate']);
-    let wart = data['Realtime Currency Exchange Rate']['5. Exchange Rate'];
+    const wart = data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
     document.getElementById("value").innerHTML = "";
     $('#value').append('<p>' + wart + '</p>');
   });
@@ -89,56 +133,56 @@ function myFunction12h() {
   fun = "FX_INTRADAY";
   inter = "&interval=15min";
   rep = 48;
-  ask = '"Time Series FX (15min)"';
+  ask = "Time Series FX (15min)";
 }
 
 function myFunction1d() {
   fun = "FX_INTRADAY";
   inter = "&interval=30min";
   rep = 48;
-  ask = '"Time Series FX (30min)"';
+  ask = "Time Series FX (30min)";
 }
 
 function myFunction1w() {
   fun = "FX_DAILY";
   inter = "";
   rep = 7;
-  ask = '"Time Series FX (Daily)"';
+  ask = "Time Series FX (Daily)";
 }
 
 function myFunction1m() {
   fun = "FX_DAILY";
   inter = "";
   rep = 31;
-  ask = '"Time Series FX (Daily)"';
+  ask = "Time Series FX (Daily)";
 }
 
 function myFunction1y() {
   fun = "FX_WEEKLY";
   inter = "";
   rep = 52;
-  ask = '"Time Series FX (Weekly)"';
+  ask = "Time Series FX (Weekly)";
 }
 
 function myFunction2y() {
   fun = "FX_MONTHLY";
   inter = "";
   rep = 24;
-  ask = '"Time Series FX (Monthly)"';
+  ask = "Time Series FX (Monthly)";
 }
 
 function myFunction5y() {
   fun = "FX_MONTHLY";
   inter = "";
   rep = 60;
-  ask = '"Time Series FX (Monthly)"';
+  ask = "Time Series FX (Monthly)";
 }
 
 function myFunction10y() {
   fun = "FX_MONTHLY";
   inter = "";
   rep = 120;
-  ask = '"Time Series FX (Monthly)"';
+  ask = "Time Series FX (Monthly)";
 }
 
 //adding event listener to buttons and selector
