@@ -1,4 +1,4 @@
-
+//const axios = require('axios');
 //adding option in selectors
 let dropdown = $('.currencies-dropdown');
 dropdown.empty();
@@ -14,8 +14,6 @@ $.getJSON(url, function (data) {
 });
 
 
-
-
 //tab to fil the chart
 let tablabel = [];
 let tabdatas = [];
@@ -26,7 +24,6 @@ let typeOfApiFunction = "FX_INTRADAY";
 let timeInterwalOfChartsData = "&interval=15min";
 let rep = 48;
 let queryForData = "Time Series FX (15min)";
-
 
 
 let fromValue, toValue;
@@ -64,7 +61,6 @@ function myMainFunction() {
   realTimeExcangeRate(fromValue,toValue);
   console.log(typeOfApiFunction, fromValue, toValue, timeInterwalOfChartsData, rep, queryForData)
   historicalRate(typeOfApiFunction,fromValue,toValue,timeInterwalOfChartsData,rep,queryForData);
-
 }
 
 
