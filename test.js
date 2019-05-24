@@ -1,23 +1,22 @@
-const operations = require('./operations.js')
+const operations = require('./main.js')
 const assert = require('chai').assert
 
 it('should return true', () => {
   assert.equal(true, true)
 })
 
-it('correctly calculates the sum of 1 and 3', () => {
-  assert.equal(operations.add(1, 3), 4)
-})
 
 
+/*
 describe('operators', () => {
   describe('#realTimeExcangeRate', () =>{
     it('should returns true', () =>{
-      assert.isTrue(new operations.realTimeExcangeRate())
+      //assert.equal(new operations.currencyUriProvider('test1', 'test1') ,'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=test1&to_currency=test1&apikey=J3IPR8A064WO3OI9')
+      assert.equal(true,true)
     })
   })
 })
-
+*/
 
 
 /*

@@ -158,17 +158,27 @@ function historicalRate(fun, from, to, inter, rep, ask) {
   renderChart(tabdatas, tablabel)
 }
 
+
 //curent rate
-function realTimeExcangeRate(from, to) {
-  const url = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=' + from + '&to_currency=' + to + '&apikey=J3IPR8A064WO3OI9';
+
+function currencyUriProvider(from, to) {
+  return 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=' + from + '&to_currency=' + to + '&apikey=J3IPR8A064WO3OI9';
+}
+
+function realTimeExcangeRate(url) {
+
   console.log(url);
   $.getJSON(url, function (data) {
     console.log('data', data);
-    const wart = data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
-    document.getElementById("value").innerHTML = "";
-    $('#value').append('<p>' + wart + '</p>');
+    return  data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
   });
 }
+
+function displayCurrencyRate(currencyRate) {
+  document.getElementById("value").innerHTML = "";
+  $('#value').append('<p>' + currenncyRate + '</p>');
+}
+
 
 
 //buton function
@@ -306,6 +316,8 @@ function renderChart(data, labels) {
   });
 
 }
+
+module.exports = {  realTimeExcangeRate, currencyUriProvider }
 
 /*
 
