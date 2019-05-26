@@ -32,3 +32,7 @@ npm run build
 * API:
 https://openexchangerates.org; https://www.alphavantage.co
 
+* visualisation:
+
+![](simple2.png)
+![](simple.png)
