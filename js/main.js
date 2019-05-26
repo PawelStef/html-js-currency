@@ -1,4 +1,4 @@
-//const axios = require('axios');
+
 //adding option in selectors
 let dropdown = $('.currencies-dropdown');
 dropdown.empty();
@@ -10,7 +10,7 @@ $.getJSON(url, function (data) {
   $.each(data, function (key, value) {
     dropdown.append('<option value=' + value + '>' + key + '</option>');
   });
-  myMainFunction();
+  mainFunction();
 });
 
 
@@ -41,12 +41,12 @@ function fillChartOnSelectedCurrencies() {
   if (fromValue !== undefined && toValue !== undefined) {
 
     //setDataHistoricalRate(typeOfApiFunction, timeInterwalOfChartsData, rep, queryForData);
-    myFunction12h();
-    myMainFunction();
+    setingDataToChart12h();
+    mainFunction();
   }
 }
 
-function myMainFunction() {
+function mainFunction() {
   let f = document.getElementById("fromValue");
    fromValue = f.options[f.selectedIndex].text;
   let t = document.getElementById("toValue");
@@ -157,77 +157,73 @@ function historicalRate(fun, from, to, inter, rep, ask) {
 
 //curent rate
 
-function currencyUriProvider(from, to) {
-  return 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=' + from + '&to_currency=' + to + '&apikey=J3IPR8A064WO3OI9';
-}
 
-function realTimeExcangeRate(url) {
-
+function realTimeExcangeRate(from, to) {
+const url = 'https://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=' + from + '&to_currency=' + to + '&apikey=J3IPR8A064WO3OI9';
   console.log(url);
   $.getJSON(url, function (data) {
     console.log('data', data);
-    return  data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
+   const currencyRate= data["Realtime Currency Exchange Rate"]["5. Exchange Rate"];
+    document.getElementById("value").innerHTML = "";
+    $('#value').append('<p>' + currencyRate + '</p>');
   });
 }
 
-function displayCurrencyRate(currencyRate) {
-  document.getElementById("value").innerHTML = "";
-  $('#value').append('<p>' + currenncyRate + '</p>');
-}
+
 
 
 
 //buton function
-function myFunction12h() {
+function setingDataToChart12h() {
   typeOfApiFunction = "FX_INTRADAY";
   timeInterwalOfChartsData = "&interval=15min";
   rep = 48;
   queryForData = "Time Series FX (15min)";
 }
 
-function myFunction1d() {
+function setingDataToChart1d() {
   typeOfApiFunction = "FX_INTRADAY";
   timeInterwalOfChartsData = "&interval=30min";
   rep = 48;
   queryForData = "Time Series FX (30min)";
 }
 
-function myFunction2w() {
+function setingDataToChart2w() {
   typeOfApiFunction = "FX_DAILY";
   timeInterwalOfChartsData = "";
   rep = 14;
   queryForData = "Time Series FX (Daily)";
 }
 
-function myFunction1m() {
+function setingDataToChart1m() {
   typeOfApiFunction = "FX_DAILY";
   timeInterwalOfChartsData = "";
   rep = 31;
   queryForData = "Time Series FX (Daily)";
 }
 
-function myFunction1y() {
+function setingDataToChart1y() {
   typeOfApiFunction = "FX_WEEKLY";
   timeInterwalOfChartsData = "";
   rep = 52;
   queryForData = "Time Series FX (Weekly)";
 }
 
-function myFunction2y() {
+function setingDataToChart2y() {
   typeOfApiFunction = "FX_MONTHLY";
   timeInterwalOfChartsData = "";
   rep = 24;
   queryForData = "Time Series FX (Monthly)";
 }
 
-function myFunction5y() {
+function setingDataToChart5y() {
   typeOfApiFunction = "FX_MONTHLY";
   timeInterwalOfChartsData = "";
   rep = 60;
   queryForData = "Time Series FX (Monthly)";
 }
 
-function myFunction10y() {
+function setingDataToChart10y() {
   typeOfApiFunction = "FX_MONTHLY";
   timeInterwalOfChartsData = "";
   rep = 120;
@@ -236,29 +232,29 @@ function myFunction10y() {
 
 //adding event listener to buttons and selector
 let a = document.getElementById("12h");
-a.addEventListener("click", myFunction12h);
-a.addEventListener("click", myMainFunction);
+a.addEventListener("click", setingDataToChart12h);
+a.addEventListener("click", mainFunction);
 let b = document.getElementById("1d");
-b.addEventListener("click", myFunction1d);
-b.addEventListener("click", myMainFunction);
+b.addEventListener("click", setingDataToChart1d);
+b.addEventListener("click", mainFunction);
 let c = document.getElementById("2w");
-c.addEventListener("click", myFunction2w);
-c.addEventListener("click", myMainFunction);
+c.addEventListener("click", setingDataToChart2w);
+c.addEventListener("click", mainFunction);
 let d = document.getElementById("1m");
-d.addEventListener("click", myFunction1m);
-d.addEventListener("click", myMainFunction);
+d.addEventListener("click", setingDataToChart1m);
+d.addEventListener("click", mainFunction);
 let e = document.getElementById("1y");
-e.addEventListener("click", myFunction1y);
-e.addEventListener("click", myMainFunction);
+e.addEventListener("click", setingDataToChart1y);
+e.addEventListener("click", mainFunction);
 let f = document.getElementById("2y");
-f.addEventListener("click", myFunction2y);
-f.addEventListener("click", myMainFunction);
+f.addEventListener("click", setingDataToChart2y);
+f.addEventListener("click", mainFunction);
 let g = document.getElementById("5y");
-g.addEventListener("click", myFunction5y);
-g.addEventListener("click", myMainFunction);
+g.addEventListener("click", setingDataToChart5y);
+g.addEventListener("click", mainFunction);
 let h = document.getElementById("10y");
-h.addEventListener("click", myFunction10y);
-h.addEventListener("click", myMainFunction);
+h.addEventListener("click", setingDataToChart10y);
+h.addEventListener("click", mainFunction);
 
 
 //generation of chart
@@ -312,42 +308,3 @@ function renderChart(data, labels) {
   });
 
 }
-
-module.exports = {  realTimeExcangeRate, currencyUriProvider }
-
-/*
-
-//button function
-function setDataHistoricalRate(typeOfApiF, timeInterwalOfChartsD, repe, queryForD) {
-  typeOfApiFunction = typeOfApiF;
-  timeInterwalOfChartsData = timeInterwalOfChartsD;
-  rep = repe;
-  queryForData = queryForD;
-}
-
-//adding event listener to buttons and selector
-let a = document.getElementById("12h");
-a.addEventListener("click", setDataHistoricalRate("FX_INTRADAY", "&interval=15min", 48, "Time Series FX (15min)"));
-a.addEventListener("click", myMainFunction);
-let b = document.getElementById("1d");
-b.addEventListener("click", setDataHistoricalRate("FX_INTRADAY", "&interval=30min", 48, "Time Series FX (30min)"));
-b.addEventListener("click", myMainFunction);
-let c = document.getElementById("2w");
-c.addEventListener("click", setDataHistoricalRate("FX_DAILY", "", 14, "Time Series FX (Daily)"));
-c.addEventListener("click", myMainFunction);
-let d = document.getElementById("1m");
-d.addEventListener("click", setDataHistoricalRate("FX_DAILY", "", 31, "Time Series FX (Daily)"));
-d.addEventListener("click", myMainFunction);
-let e = document.getElementById("1y");
-e.addEventListener("click", setDataHistoricalRate("FX_WEEKLY", "", 52, "Time Series FX (Weekly)"));
-e.addEventListener("click", myMainFunction);
-let f = document.getElementById("2y");
-f.addEventListener("click", setDataHistoricalRate("FX_MONTHLY", "", 24, "Time Series FX (Monthly)"));
-f.addEventListener("click", myMainFunction);
-let g = document.getElementById("5y");
-g.addEventListener("click", setDataHistoricalRate("FX_MONTHLY", "", 60, "Time Series FX (Monthly)"));
-g.addEventListener("click", myMainFunction);
-let h = document.getElementById("10y");
-h.addEventListener("click", setDataHistoricalRate("FX_MONTHLY", "", 120, "Time Series FX (Monthly)"));
-h.addEventListener("click", myMainFunction);
-*/
