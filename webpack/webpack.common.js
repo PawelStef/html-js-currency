@@ -4,14 +4,6 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  devServer: {
-    allowedHosts: [
-      'host.com',
-      'subdomain.host.com',
-      'subdomain2.host.com',
-      'host2.com'
-    ]
-  },
   entry: {
     app: Path.resolve(__dirname, '../src/scripts/app.js')
   },
@@ -31,7 +23,7 @@ module.exports = {
       { from: Path.resolve(__dirname, '../public'), to: 'public' }
     ]),
     new HtmlWebpackPlugin({
-      template: Path.resolve(__dirname, '../src/app.html')
+      template: Path.resolve(__dirname, '../src/index.html')
     })
   ],
   resolve: {
